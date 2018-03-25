@@ -22,7 +22,7 @@ public class UserController {
     public ResponseData user(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         User user = userService.getUserById(id);
-        ResponseData<User> responseData = null;
+        ResponseData<User> responseData;
         if (user != null)
             responseData = new ResponseDataUtils<User>().dataBuilder(true, "", user);
         else
@@ -33,7 +33,7 @@ public class UserController {
     @RequestMapping("/user/all")
     @ResponseBody
     public ResponseData allUser() {
-        ResponseData<User> responseData = null;
+        ResponseData<User> responseData;
         List<User> userList = userService.getAllUser();
         if (userList != null)
             responseData = new ResponseDataUtils<User>().dataBuilder(true, "", userList);
