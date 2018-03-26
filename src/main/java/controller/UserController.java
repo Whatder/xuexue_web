@@ -51,11 +51,12 @@ public class UserController {
         String password = request.getParameter("password");
         User user = userService.getUserByAccount(account);
         if (user == null) {
-            responseData = new ResponseDataUtils<String>().dataBuilder(false, "用户不存在", "");
+            responseData = new ResponseDataUtils<User>().dataBuilder(false, "用户不存在", user);
         } else if (!user.getPassword().equals(password)) {
-            responseData = new ResponseDataUtils<String>().dataBuilder(false, "密码错误", "");
+            user = null;
+            responseData = new ResponseDataUtils<User>().dataBuilder(false, "密码错误", user);
         } else {
-            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "登录成功");
+            responseData = new ResponseDataUtils<User>().dataBuilder(true, "", user);
         }
         return responseData;
     }
