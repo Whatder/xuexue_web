@@ -41,4 +41,21 @@ public class UserController {
             responseData = new ResponseDataUtils<User>().dataBuilder(false, "参数错误", userList);
         return responseData;
     }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public ResponseData login(HttpServletRequest request) {
+        ResponseData<String> responseData;
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+        User user = userService.getUserByAccount(account);
+        if (user == null) {
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "用户不存在", "");
+        } else if (!user.getPassword().equals(password)) {
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "密码错误", "");
+        } else {
+            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "登录成功");
+        }
+        return responseData;
+    }
 }
