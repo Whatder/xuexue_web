@@ -23,4 +23,8 @@ public class UserServiceImpl implements UserService {
     public User getUserByAccount(String account) {
         return userMapper.getUserByAccount(account);
     }
+
+    public Boolean logup(String account, String password, String name) {
+        return userMapper.logup(account, password, name);
+    }
 }

@@ -10,4 +10,6 @@ public interface UserService {
     List<User> getAllUser();
 
     User getUserByAccount(String account);
+
+    Boolean logup(String account, String password, String name);
 }
