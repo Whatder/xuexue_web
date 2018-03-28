@@ -7,6 +7,7 @@ public class User implements Serializable {
     String account;
     String password;
     String name;
+    String profile_pic;
 
     public int getId() {
         return id;
@@ -38,5 +39,13 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
     }
 }
