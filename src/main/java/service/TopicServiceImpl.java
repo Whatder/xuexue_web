@@ -19,4 +19,8 @@ public class TopicServiceImpl implements TopicService {
     public Boolean insertTopic(int author_id, String title, String content, long create_time) {
         return topicMapper.insertTopic(author_id, title, content, create_time);
     }
+
+    public Boolean likeTopicById(int id) {
+        return topicMapper.likeTopicById(id);
+    }
 }

@@ -43,4 +43,15 @@ public class TopicController {
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "发布失败", "");
         return responseData;
     }
+
+    @RequestMapping(value = "/topic/like", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData likeTopicById(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (topicService.likeTopicById(id))
+            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "点赞成功");
+        else
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "点赞失败", "");
+        return responseData;
+    }
 }
