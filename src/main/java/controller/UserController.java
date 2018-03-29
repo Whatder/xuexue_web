@@ -4,6 +4,7 @@ import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import response.ResponseData;
 import response.ResponseDataUtils;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     //    登录
-    @RequestMapping("/login")
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData login(HttpServletRequest request) {
         String account = request.getParameter("account");
@@ -62,7 +63,7 @@ public class UserController {
     }
 
     //    注册
-    @RequestMapping("/logup")
+    @RequestMapping(value = "/user/logup", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData logup(HttpServletRequest request) {
         String account = request.getParameter("account");
