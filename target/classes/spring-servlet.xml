@@ -11,9 +11,16 @@
     <mvc:annotation-driven/>
     <!--处理静态资源-->
     <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/upload/images/"/>
 
     <!-- 自动扫描controller包下的有@Controller注解的，注入为bean -->
     <context:component-scan base-package="controller"/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 上传文件大小限制2048M。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="2048000000"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 
     <!--配置视图解析器-->
     <bean id="viewResolverCommon" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
