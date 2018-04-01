@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface ReplyMapper {
-    @Select("select reply.id,user.name,user.profile_pic,reply.content,reply.create_time from reply left join user on reply.author_id = user.id where reply.topic_id = #{topic_id}")
+    @Select("select reply.id,user.name,user.profile_pic,reply.content,reply.create_time from reply left join user on reply.author_id = user.id where reply.topic_id = #{topic_id} order by reply.create_time desc")
     List<Reply> getReplyByTopicId(int topic_id);
 
     @Insert("insert into reply(author_id,topic_id,content,create_time) values(#{author_id},#{topic_id},#{content},#{create_time})")
