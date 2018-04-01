@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface TopicMapper {
-    @Select("select user.name,user.profile_pic,topic.* from topic left join user on topic.author_id = user.id")
+    @Select("select user.name,user.profile_pic,topic.* from topic left join user on topic.author_id = user.id order by topic.create_time desc")
     List<Topic> getTopicList();
 
     @Insert("insert into topic(author_id,title,content,create_time,like_count) values(#{author_id},#{title},#{content},#{create_time},0)")
