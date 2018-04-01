@@ -11,6 +11,7 @@ import response.ResponseDataUtils;
 import service.TopicService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class TopicController {
         int author_id = Integer.parseInt(request.getParameter("author_id"));
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        long create_time = Long.parseLong(request.getParameter("create_time"));
+        long create_time = Calendar.getInstance().getTimeInMillis() / 1000;
         if (topicService.insertTopic(author_id, title, content, create_time))
             responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "发布成功");
         else
