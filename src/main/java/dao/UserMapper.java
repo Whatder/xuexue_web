@@ -4,6 +4,7 @@ import model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface UserMapper {
 
     @Insert("insert into user(account,password,name) values(#{account},#{password},#{name})")
     Boolean logup(@Param("account") String account, @Param("password") String password, @Param("name") String name);
+
+    @Update("update user set password=#{password} where id=#{id}")
+    Boolean changerPassword(@Param("password") String password, @Param("id") int id);
 }

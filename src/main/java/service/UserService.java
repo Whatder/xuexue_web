@@ -12,4 +12,7 @@ public interface UserService {
     User getUserByAccount(String account);
 
     Boolean logup(String account, String password, String name);
+
+    Boolean changerPassword(String password, int id);
+
 }

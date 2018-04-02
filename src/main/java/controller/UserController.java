@@ -82,4 +82,25 @@ public class UserController {
         }
         return responseData;
     }
+
+    //修改密码
+    @RequestMapping(value = "user/password", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData changerPwd(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String oldPwd = request.getParameter("old_pwd");
+        String newPwd = request.getParameter("new_pwd");
+        if (id == 0 || null == oldPwd || null == newPwd)
+            return new ResponseDataUtils<String>().dataBuilder(false, "参数错误", "");
+        User user = userService.getUserById(id);
+        if (!oldPwd.equals(user.getPassword()))
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "原密码错误", "");
+        else {
+            if (userService.changerPassword(newPwd, id))
+                responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "修改成功");
+            else
+                responseData = new ResponseDataUtils<String>().dataBuilder(false, "修改失败，请重试", "");
+        }
+        return responseData;
+    }
 }
