@@ -23,4 +23,7 @@ public interface UserMapper {
 
     @Update("update user set password=#{password} where id=#{id}")
     Boolean changerPassword(@Param("password") String password, @Param("id") int id);
+
+    @Update("update user set name=#{name} where id=#{id}")
+    Boolean changerName(@Param("name") String name, @Param("id") int id);
 }

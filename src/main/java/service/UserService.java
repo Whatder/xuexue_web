@@ -15,4 +15,6 @@ public interface UserService {
 
     Boolean changerPassword(String password, int id);
 
+    Boolean changerName(String name, int id);
+
 }

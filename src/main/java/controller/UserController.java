@@ -103,4 +103,19 @@ public class UserController {
         }
         return responseData;
     }
+
+    //修改昵称
+    @RequestMapping(value = "user/name", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData changerName(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        if (id == 0 || null == name)
+            return new ResponseDataUtils<String>().dataBuilder(false, "参数错误", "");
+        if (userService.changerName(name, id))
+            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "修改成功");
+        else
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "修改失败，请重试", "");
+        return responseData;
+    }
 }
