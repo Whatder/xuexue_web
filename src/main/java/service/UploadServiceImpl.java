@@ -12,4 +12,8 @@ public class UploadServiceImpl implements UploadService {
     public Boolean updateProfilePic(String profile_pic, int id) {
         return uploadMapper.updateProfilePic(profile_pic, id);
     }
+
+    public Boolean addMovies(String thumbnail, String title, String summary, String url) {
+        return uploadMapper.addMovies(thumbnail, title, summary, url);
+    }
 }

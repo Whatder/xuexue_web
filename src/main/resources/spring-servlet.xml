@@ -12,6 +12,7 @@
     <!--处理静态资源-->
     <mvc:default-servlet-handler/>
     <mvc:resources mapping="/images/**" location="/WEB-INF/upload/images/"/>
+    <mvc:resources mapping="/movies/**" location="/WEB-INF/upload/movies/"/>
 
     <!-- 自动扫描controller包下的有@Controller注解的，注入为bean -->
     <context:component-scan base-package="controller"/>

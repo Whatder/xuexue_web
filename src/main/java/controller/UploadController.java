@@ -29,14 +29,51 @@ public class UploadController {
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "请选择文件", "");
         else {
             try {
-                String name = Calendar.getInstance().getTimeInMillis() / 1000 + "_" + uploadFile.getOriginalFilename();
+                //时间戳加后缀
+                String name = Calendar.getInstance().getTimeInMillis() / 1000
+                        + "." + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf(".") + 1);
                 String path = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/images/") + name;
-                uploadFile.transferTo(new File(path));
+                File filePath = new File(path);
+                if (!filePath.getParentFile().exists())
+                    filePath.getParentFile().mkdirs();
+                uploadFile.transferTo(filePath);
 //                需要更换服务器地址
                 if (uploadService.updateProfilePic("http://10.1.95.99/images/" + name, Integer.parseInt(request.getParameter("user_id"))))
                     responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "更换成功");
                 else
                     responseData = new ResponseDataUtils<String>().dataBuilder(false, "更换失败", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+                responseData = new ResponseDataUtils<String>().dataBuilder(false, e.getMessage(), "");
+            }
+        }
+        return responseData;
+    }
+
+    @RequestMapping(value = "/upload/movie", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData uploadMovie(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest request) {
+        String title = request.getParameter("title");
+        String summary = request.getParameter("summary");
+        if (uploadFile == null)
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "请选择文件", "");
+        if (title == null || summary == null)
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "参数不完整", "");
+        else {
+            try {
+                //取时间戳加后缀作为文件名
+                String name = Calendar.getInstance().getTimeInMillis() / 1000
+                        + "." + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf(".") + 1);
+                String path = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/movies/") + name;
+                File filePath = new File(path);
+                if (!filePath.getParentFile().exists())
+                    filePath.getParentFile().mkdirs();
+                uploadFile.transferTo(filePath);
+//                需要更换服务器
+                if (uploadService.addMovies("", title, summary, "http://10.1.95.99/movies/" + name))
+                    responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "添加成功");
+                else
+                    responseData = new ResponseDataUtils<String>().dataBuilder(false, "添加失败", "");
             } catch (IOException e) {
                 e.printStackTrace();
                 responseData = new ResponseDataUtils<String>().dataBuilder(false, e.getMessage(), "");
