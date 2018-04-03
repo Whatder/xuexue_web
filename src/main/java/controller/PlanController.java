@@ -63,4 +63,15 @@ public class PlanController {
         }
         return responseData;
     }
+
+    @RequestMapping(value = "plan/del", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData delPlan(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (planService.delPlanById(id))
+            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "删除成功");
+        else
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "失败", "");
+        return responseData;
+    }
 }
