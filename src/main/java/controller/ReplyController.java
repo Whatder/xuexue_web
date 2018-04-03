@@ -45,4 +45,15 @@ public class ReplyController {
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "评论失败", "");
         return responseData;
     }
+
+    @RequestMapping("/reply/all")
+    @ResponseBody
+    public ResponseData getAllReply() {
+        List<Reply> replyList = replyService.getAllReply();
+        if (replyList != null)
+            responseData = new ResponseDataUtils<List<Reply>>().dataBuilder(true, "", replyList);
+        else
+            responseData = new ResponseDataUtils<List<Reply>>().dataBuilder(false, "", replyList);
+        return responseData;
+    }
 }

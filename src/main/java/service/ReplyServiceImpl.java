@@ -12,6 +12,10 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     ReplyMapper replyMapper;
 
+    public List<Reply> getAllReply() {
+        return replyMapper.getAllReply();
+    }
+
     public List<Reply> getReplyByTopicId(int topic_id) {
         return replyMapper.getReplyByTopicId(topic_id);
     }
