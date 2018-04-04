@@ -52,15 +52,27 @@ public class UploadController {
 
     @RequestMapping(value = "/upload/movie", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData uploadMovie(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest request) {
+    public ResponseData uploadMovie(@RequestParam("image") MultipartFile uploadImage,
+                                    @RequestParam("file") MultipartFile uploadFile,
+                                    HttpServletRequest request) {
         String title = request.getParameter("title");
         String summary = request.getParameter("summary");
-        if (uploadFile == null)
+        if (uploadFile == null || uploadImage == null)
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "请选择文件", "");
         if (title == null || summary == null)
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "参数不完整", "");
         else {
             try {
+//                保存缩略图
+                String imageName = Calendar.getInstance().getTimeInMillis() / 1000
+                        + "." + uploadImage.getOriginalFilename().substring(uploadImage.getOriginalFilename().lastIndexOf(".") + 1);
+                String ImagePath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/images/") + imageName;
+                File imageFilePath = new File(ImagePath);
+                if (!imageFilePath.getParentFile().exists())
+                    imageFilePath.getParentFile().mkdirs();
+                uploadImage.transferTo(imageFilePath);
+
+
                 //取时间戳加后缀作为文件名
                 String name = Calendar.getInstance().getTimeInMillis() / 1000
                         + "." + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf(".") + 1);
@@ -70,7 +82,7 @@ public class UploadController {
                     filePath.getParentFile().mkdirs();
                 uploadFile.transferTo(filePath);
 //                需要更换服务器
-                if (uploadService.addMovies("", title, summary, "http://10.1.95.99/movies/" + name))
+                if (uploadService.addMovies("http://10.1.95.99/movies/" + imageName, title, summary, "http://10.1.95.99/movies/" + name))
                     responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "添加成功");
                 else
                     responseData = new ResponseDataUtils<String>().dataBuilder(false, "添加失败", "");
