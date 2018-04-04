@@ -38,7 +38,7 @@ public class AdminController {
 
 
     //修改密码
-    @RequestMapping(value = "admin/password", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/password", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData changerPwd(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
