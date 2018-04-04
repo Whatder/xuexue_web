@@ -23,4 +23,16 @@ public class TopicServiceImpl implements TopicService {
     public Boolean likeTopicById(int id) {
         return topicMapper.likeTopicById(id);
     }
+
+    public Topic getTopicByID(int id) {
+        return topicMapper.getTopicByID(id);
+    }
+
+    public Boolean delTopicByID(int id) {
+        return topicMapper.delTopicByID(id);
+    }
+
+    public Boolean delReplyByTopicID(int topic_id) {
+        return topicMapper.delReplyByTopicID(topic_id);
+    }
 }

@@ -1,10 +1,7 @@
 package dao;
 
 import model.Topic;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,4 +14,14 @@ public interface TopicMapper {
 
     @Update("update topic set like_count=like_count+1 where id=#{id}")
     Boolean likeTopicById(int id);
+
+    @Select("select * from topic where id=#{id}")
+    Topic getTopicByID(int id);
+
+    @Delete("delete from topic where id=#{id}")
+    Boolean delTopicByID(int id);
+
+    //删除指定topic_id下的评论
+    @Delete("delete from reply where topic_id=#{topic_id}")
+    Boolean delReplyByTopicID(int topic_id);
 }
