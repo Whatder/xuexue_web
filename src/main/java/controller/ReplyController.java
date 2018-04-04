@@ -56,4 +56,15 @@ public class ReplyController {
             responseData = new ResponseDataUtils<List<Reply>>().dataBuilder(false, "", replyList);
         return responseData;
     }
+
+    @RequestMapping(value = "/reply/del", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData delReply(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (replyService.delReply(id))
+            responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "删除成功");
+        else
+            responseData = new ResponseDataUtils<String>().dataBuilder(false, "删除失败", "");
+        return responseData;
+    }
 }

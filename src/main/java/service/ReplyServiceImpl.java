@@ -23,4 +23,8 @@ public class ReplyServiceImpl implements ReplyService {
     public Boolean insertReply(int author_id, int topic_id, String content, long create_time) {
         return replyMapper.insertReply(author_id, topic_id, content, create_time);
     }
+
+    public Boolean delReply(int id) {
+        return replyMapper.delReply(id);
+    }
 }
