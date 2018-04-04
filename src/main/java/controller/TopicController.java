@@ -61,8 +61,8 @@ public class TopicController {
     public ResponseData delTopicById(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
 //        删除指定topic下的评论后 再删除本身
-        if (topicService.delReplyByTopicID(topicService.getTopicByID(id).getId()) &&
-                topicService.delTopicByID(id))
+        topicService.delReplyByTopicID(topicService.getTopicByID(id).getId());
+        if (topicService.delTopicByID(id))
             responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "删除成功");
         else
             responseData = new ResponseDataUtils<String>().dataBuilder(false, "删除失败", "");
