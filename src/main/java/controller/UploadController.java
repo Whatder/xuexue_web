@@ -82,7 +82,7 @@ public class UploadController {
                     filePath.getParentFile().mkdirs();
                 uploadFile.transferTo(filePath);
 //                需要更换服务器
-                if (uploadService.addMovies("http://10.1.95.99/movies/" + imageName, title, summary, "http://10.1.95.99/movies/" + name))
+                if (uploadService.addMovies("http://10.1.95.99/images/" + imageName, title, summary, "http://10.1.95.99/movies/" + name))
                     responseData = new ResponseDataUtils<String>().dataBuilder(true, "", "添加成功");
                 else
                     responseData = new ResponseDataUtils<String>().dataBuilder(false, "添加失败", "");
