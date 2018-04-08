@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MovieService {
     List<Movie> getAllMovies();
+
+    Boolean delMovieById(int id);
 }

@@ -15,4 +15,8 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getAllMovies() {
         return movieMapper.getAllMovies();
     }
+
+    public Boolean delMovieById(int id) {
+        return movieMapper.delMovieById(id);
+    }
 }
